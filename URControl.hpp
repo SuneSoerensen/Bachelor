@@ -36,6 +36,10 @@ public:
     void moveToHome();
     void moveRel(double anX, double aY, double aZ);
 
+    bool checkBounds(double x, double y, double z);
+
+    void updateCurrToolPos();
+
     //Helpful debug function:
     void printcurrToolPos();
 
@@ -45,7 +49,7 @@ private:
   int port;
   string ip;
   bool haveBeenToInit;
-  double currToolPos[6] = {-0.1087, -0.48537, 0.43305, 0.0, -3.1409, 0.0}; //TODO: get from robot via URPrimaryInterface
+  double currToolPos[6] = {-0.1087, -0.48537, 0.43305, 0.0, -3.1409, 0.0};
   int numOfMoves = 0; //DEBUG: for saving all move scripts
 
 };
