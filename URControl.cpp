@@ -9,6 +9,8 @@
 #include "URControl.hpp"
 #include <fstream>
 #include <unistd.h>
+#include <rwhw/universalrobots/UniversalRobotsData.hpp>
+#include <rw/math/Vector3D.hpp>
 
 //NOTE: The following defines shall be moved to settings.hpp
 #define ACC     0.1
@@ -17,10 +19,11 @@
 #define BLENDR  0
 #define UR_MAX_X  1000
 #define UR_MIN_X  -1000
-#define UR_MAX_Y  1000
-#define UR_MIN_Y  -1000
+#define UR_MAX_Y  -285
+#define UR_MIN_Y  -785
 #define UR_MAX_Z  10000
-#define UR_MIN_Z  0
+#define UR_MIN_Z  283
+#define R_SQUARED 800*800
 
 #define URCONTROL_MODE 0 //0=standard 1=debug
 
@@ -71,12 +74,16 @@ void URControl::moveToInit()
 {
   sendScript("goToInit.txt");
   haveBeenToInit = 1;
+  usleep(5100000);
+  //updateCurrToolPos();
 }
 
 void URControl::moveToHome()
 {
   sendScript("goToHome.txt");
   haveBeenToInit = 0;
+  usleep(5100000);
+  //updateCurrToolPos();
 }
 
 void URControl::moveRel(double anX, double aY, double aZ)
@@ -104,6 +111,10 @@ void URControl::moveRel(double anX, double aY, double aZ)
   else if((currToolPos[2]+z) < UR_MIN_Z || (currToolPos[2]+z) > UR_MAX_Z)
   {
     throw("[URControl::moveRel]: New z-coordinates are out of bounds!");
+  }
+  else if(!checkBounds(x,y,z))
+  {
+    throw("[URControl::moveRel]: Robot cannot reach so far!");
   }
 
   //Generate scriptfile:
@@ -143,6 +154,34 @@ void URControl::moveRel(double anX, double aY, double aZ)
   currToolPos[2] += z;
 
   usleep((MOVTIME*1000000)+100000); //Wait for movement to finish (MOVTIME) + 100000 µs (0.1 s)
+  //updateCurrToolPos();
+}
+
+void URControl::updateCurrToolPos()
+{
+  UniversalRobotsData URdata;
+  math::Vector3D<> toolPos;
+
+  if(ur.hasData())
+  {
+    URdata = ur.getLastData();
+    toolPos = URdata.toolPosition;
+    currToolPos[0] = toolPos[0];
+    currToolPos[1] = toolPos[1];
+    currToolPos[2] = toolPos[2];
+
+    /*DEBUG*/ cout << "Toolpos: " << toolPos[0] << " " << toolPos[1] << " " << toolPos[2] << endl;
+    /*DEBUG*/ cout << "masterTemperature: " << URdata.masterTemperature << endl;
+  }
+  else
+  {
+    cout << "{WARNING} [URControl::updateCurrToolPos()]: UR had no data!" << endl;
+  }
+}
+
+bool URControl::checkBounds(double x, double y, double z)
+{
+  return ((x*x + y*y + z*z) <= R_SQUARED);
 }
 
 //Helpful debug functions:

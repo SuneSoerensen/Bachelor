@@ -24,7 +24,6 @@ using namespace std;
 
 class URControl
 {
-private:
 public:
     URControl();
     URControl(string anIp, int aPort);
@@ -37,7 +36,11 @@ public:
     void moveToHome();
     void moveRel(double anX, double aY, double aZ);
 
-    //Helpful debug functions:
+    bool checkBounds(double x, double y, double z);
+
+    void updateCurrToolPos();
+
+    //Helpful debug function:
     void printcurrToolPos();
 
     ~URControl();
