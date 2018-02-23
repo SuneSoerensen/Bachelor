@@ -24,7 +24,6 @@ using namespace std;
 
 class URControl
 {
-private:
 public:
     URControl();
     URControl(string anIp, int aPort);
@@ -37,7 +36,7 @@ public:
     void moveToHome();
     void moveRel(double anX, double aY, double aZ);
 
-    //Helpful debug functions:
+    //Helpful debug function:
     void printcurrToolPos();
 
     ~URControl();
@@ -46,7 +45,7 @@ private:
   int port;
   string ip;
   bool haveBeenToInit;
-  double currToolPos[6] = {-0.1087, -0.48537, 0.43305, 0.0, -3.1409, 0.0};
+  double currToolPos[6] = {-0.1087, -0.48537, 0.43305, 0.0, -3.1409, 0.0}; //TODO: get from robot via URPrimaryInterface
   int numOfMoves = 0; //DEBUG: for saving all move scripts
 
 };
