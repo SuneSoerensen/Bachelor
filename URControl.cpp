@@ -112,6 +112,10 @@ void URControl::moveRel(double anX, double aY, double aZ)
   {
     throw("[URControl::moveRel]: New z-coordinates are out of bounds!");
   }
+  else if(!checkBounds(x,y,z))
+  {
+    throw("[URControl::moveRel]: Robot cannot reach so far!");
+  }
 
   //Generate scriptfile:
   string fileName;
