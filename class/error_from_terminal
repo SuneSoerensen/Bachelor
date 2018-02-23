@@ -1,0 +1,20 @@
+sune@sune-N550JK:~/Dropbox/6. Semester studiegruppe/s's bachelorkode/urControl/class$ ./URControlTest
+Welcome to URControlTest.cpp
+Loading UR script from the file: goToInit.txt
+Script loaded.
+terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::system::system_error> >'
+  what():  available: Bad file descriptor
+Aborted (core dumped)
+sune@sune-N550JK:~/Dropbox/6. Semester studiegruppe/s's bachelorkode/urControl/class$ ./URControlTest
+Welcome to URControlTest.cpp
+Loading UR script from the file: goToInit.txt
+Script loaded.
+terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::system::system_error> >'
+  what():  available: Bad file descriptor
+Aborted (core dumped)
+sune@sune-N550JK:~/Dropbox/6. Semester studiegruppe/s's bachelorkode/urControl/class$ sudo service network-manager restart
+[sudo] password for sune: 
+sune@sune-N550JK:~/Dropbox/6. Semester studiegruppe/s's bachelorkode/urControl/class$ ^C
+sune@sune-N550JK:~/Dropbox/6. Semester studiegruppe/s's bachelorkode/urControl/class$ ^C
+sune@sune-N550JK:~/Dropbox/6. Semester studiegruppe/s's bachelorkode/urControl/class$ 
+
