@@ -21,7 +21,7 @@ int main()
 
   URControl ur5(ip, port);
 
-  //ur5.connect();
+  ur5.connect();
 
   string command;
 
@@ -32,7 +32,7 @@ int main()
 
     if(command == "tp")
     {
-      ur5.updateCurrToolPos();
+      //ur5.updateCurrToolPos();
       ur5.printcurrToolPos();
     }
     else if(command =="mov")
@@ -67,13 +67,21 @@ int main()
       cout << "Enter z:";
       cin >> z;
 
-      ur5.moveRel(x,y,z);
+      try
+      {
+        cout << "Moving..." << endl;
+        ur5.moveRel(x,y,z);
 
-      cout << "Moving..." << endl;
+      }
+      catch(const char e[])
+      {
+        cout << e << endl;
+      }
+
     }
     else if (command == "checkb")
     {
-      cout << "Bound are okay? " << ur5.checkBounds(1000,0,0) << endl;
+      cout << "Are bounds of (1000,0,0) okay? " << ur5.checkBounds(1000,0,0) << endl;
     }
     else
     {
