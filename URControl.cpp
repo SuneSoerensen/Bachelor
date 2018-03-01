@@ -11,21 +11,7 @@
 #include <unistd.h>
 #include <rwhw/universalrobots/UniversalRobotsData.hpp>
 #include <rw/math/Vector3D.hpp>
-
-//NOTE: The following defines shall be moved to settings.hpp
-#define ACC     0.1
-#define VEL     0.1
-#define MOVTIME 5
-#define BLENDR  0
-#define UR_MAX_X  1000
-#define UR_MIN_X  -1000
-#define UR_MAX_Y  -285
-#define UR_MIN_Y  -785
-#define UR_MAX_Z  10000
-#define UR_MIN_Z  283
-#define R_SQUARED 800*800
-
-#define URCONTROL_MODE 0 //0=standard 1=debug
+#include "settings.hpp"
 
 USE_ROBWORK_NAMESPACE
 
@@ -76,6 +62,12 @@ void URControl::moveToInit()
   haveBeenToInit = 1;
   usleep(5100000);
   //updateCurrToolPos();
+  currToolPos[0] = -0.1087;
+  currToolPos[1] = -0.48537;
+  currToolPos[2] =  0.43305;
+  currToolPos[3] =  0.0;
+  currToolPos[4] = -3.1409;
+  currToolPos[5] = 0.0;
 }
 
 void URControl::moveToHome()
@@ -112,7 +104,7 @@ void URControl::moveRel(double anX, double aY, double aZ)
   {
     throw("[URControl::moveRel]: New z-coordinates are out of bounds!");
   }
-  else if(!checkBounds(x,y,z))
+  else if(!checkBounds((currToolPos[0]+x),(currToolPos[1]+y),(currToolPos[2]+z)))
   {
     throw("[URControl::moveRel]: Robot cannot reach so far!");
   }
@@ -179,9 +171,33 @@ void URControl::updateCurrToolPos()
   }
 }
 
+void URControl::moveAbs(double anX, double aY, double aZ)
+{
+  double relX = anX - currToolPos[0]*1000.0;
+  double relY = aY - currToolPos[1]*1000.0;
+  double relZ = aZ - currToolPos[2]*1000.0;
+
+  moveRel(relX, relY, relZ);
+}
+
 bool URControl::checkBounds(double x, double y, double z)
 {
   return ((x*x + y*y + z*z) <= R_SQUARED);
+}
+
+double URControl::getToolX()
+{
+  return currToolPos[0];
+}
+
+double URControl::getToolY()
+{
+  return currToolPos[1];
+}
+
+double URControl::getToolZ()
+{
+  return currToolPos[2];
 }
 
 //Helpful debug functions:

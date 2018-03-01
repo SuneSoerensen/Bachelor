@@ -35,10 +35,15 @@ public:
     void moveToInit();
     void moveToHome();
     void moveRel(double anX, double aY, double aZ);
+    void moveAbs(double anX, double aY, double aZ);
 
     bool checkBounds(double x, double y, double z);
 
     void updateCurrToolPos();
+
+    double getToolX();
+    double getToolY();
+    double getToolZ();
 
     //Helpful debug function:
     void printcurrToolPos();
