@@ -1,0 +1,22 @@
+**************************
+ How to use git on ubuntu
+**************************
+
+Firstly, make sure you have git installed. If not:
+	sudo apt-get install git
+
+
+Now, configure github account (replace user_name and email_id with your github credentials):
+	git config --global user.name "user_name"
+	git config --global user.email "email_id"
+
+Then, create your local repository (where your copy of the code should be):
+	git init path/to/my/repo
+
+Move to it:
+	cd Mytest
+
+You are now ready to use github on your computer, congratulations! The rest of this document is for reference.
+
+**Getting master branch:
+	git pull https://github.com/SuneSoerensen/Bachelor.git
