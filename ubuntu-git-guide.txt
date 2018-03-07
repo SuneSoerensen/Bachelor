@@ -16,7 +16,13 @@ Then, create your local repository (where your copy of the code should be):
 Move to it:
 	cd Mytest
 
-You are now ready to use github on your computer, congratulations! The rest of this document is for reference.
+Add the shared repo:
+	git remote add origin https://github.com/SuneSoerensen/Bachelor.git
 
-**Getting master branch:
-	git pull https://github.com/SuneSoerensen/Bachelor.git
+Getting master branch (or any other branch, just replace "master"):
+	git pull origin master
+
+When you have changed a file, commit it some_branch (master or whatever):
+	git add "myFile.txt"
+	git commit -m "A message describing your commit"
+	git push origin some_branch

@@ -11,7 +11,25 @@
 #include <unistd.h>
 #include <rwhw/universalrobots/UniversalRobotsData.hpp>
 #include <rw/math/Vector3D.hpp>
+<<<<<<< HEAD
 #include "settings.hpp"
+=======
+
+//NOTE: The following defines shall be moved to settings.hpp
+#define ACC     0.1
+#define VEL     0.1
+#define MOVTIME 5
+#define BLENDR  0
+#define UR_MAX_X   0.221
+#define UR_MIN_X  -0.458
+#define UR_MAX_Y  -0.285
+#define UR_MIN_Y  -0.785
+#define UR_MAX_Z   0.700
+#define UR_MIN_Z   0.283
+#define R_SQUARED 0.8*0.8
+
+#define URCONTROL_MODE 0 //0=standard 1=debug
+>>>>>>> 5db38a5de115632728751282b6a6803151594d79
 
 USE_ROBWORK_NAMESPACE
 
